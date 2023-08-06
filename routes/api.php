@@ -22,5 +22,8 @@ Route::post('/user/create', [UserController::class, 'create']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('/user', [UserController::class, 'show'])->name('user');
-    Route::post('/service/order/create', [ServiceOrderController::class, 'createOrder'])->name('order.create');
+    Route::post('/service/order', [ServiceOrderController::class, 'createOrder'])->name('order.create');
+    Route::get('/service/order', [ServiceOrderController::class, 'getAllOrder'])->name('order.get');
+    Route::get('/service/order/{id}', [ServiceOrderController::class, 'getOrderById'])->name('order.getById');
+    Route::get('/service/order/{id}/user', [ServiceOrderController::class, 'getOrderByUserId'])->name('order.getBUserId');
 });

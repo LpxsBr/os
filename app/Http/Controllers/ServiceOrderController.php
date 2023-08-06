@@ -17,7 +17,7 @@ class ServiceOrderController extends Controller
     {
         try {
             DB::beginTransaction();
-            
+
 
             $user = Auth::user();
 
@@ -57,5 +57,35 @@ class ServiceOrderController extends Controller
 
             return response($response, 500);
         }
+    }
+    public function getAllOrder(Request $request)
+    {
+        return response(ServiceOrder::all(), 200);
+    }
+
+    public function getOrderById($id)
+    {
+
+        $order = ServiceOrder::all()->where('id', $id);
+
+        $response = [
+            'message' => 'ordem de servico encontrada',
+            'order' => $order[1]
+        ];
+
+        return response($response, 200);
+    }
+
+    public function getOrderByUserId($user)
+    {
+
+        $order = ServiceOrder::all()->where('user_id', $user);
+
+        $response = [
+            'message' => 'ordem de servico encontrada',
+            'order' => $order
+        ];
+
+        return response($response, 200);
     }
 }
