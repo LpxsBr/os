@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -45,6 +46,9 @@ class UserController extends Controller
     }
     public function show(Request $request)
     {
-        return response()->json($request->user());
+        if(!Auth::user()){
+            return response(['message'=>'usuario nao autenticado'], 403);
+        }
+        return response(User::all(), 200);
     }
 }
