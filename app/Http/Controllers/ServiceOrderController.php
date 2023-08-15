@@ -32,7 +32,7 @@ class ServiceOrderController extends Controller
             ]);
 
             $response = [
-                'message' => 'Ordem de servico criada com sucesso',
+                'status' => 'ok', 'message' => 'Ordem de servico criada com sucesso',
                 'order' => [
                     'user_id' => $user->id,
                     'equipament' => $request['equipament'],
@@ -49,7 +49,7 @@ class ServiceOrderController extends Controller
             return response($response, 201);
         } catch (Exception $exception) {
 
-            $response = ['message' => 'houve um erro ao cadastrar o usuario'];
+            $response = ['status' => 'ok', 'message' => 'houve um erro ao cadastrar o usuario'];
 
             Log::error($exception->getMessage() . '\n' . $exception->getTraceAsString());
 
@@ -69,7 +69,7 @@ class ServiceOrderController extends Controller
         $order = ServiceOrder::all()->where('id', $id);
 
         $response = [
-            'message' => 'ordem de servico encontrada',
+            'status' => 'ok', 'message' => 'ordem de servico encontrada',
             'order' => $order[1]
         ];
 
@@ -82,7 +82,7 @@ class ServiceOrderController extends Controller
         $order = ServiceOrder::all()->where('user_id', $user);
 
         $response = [
-            'message' => 'ordem de servico encontrada',
+            'status' => 'ok', 'message' => 'ordem de servico encontrada',
             'order' => $order
         ];
 

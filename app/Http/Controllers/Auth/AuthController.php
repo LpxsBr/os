@@ -21,7 +21,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response(['message' => 'dados invalidos']);
+            return response(['status' => 'ok', 'message' => 'dados invalidos']);
         }
 
         $data = $validator->validated();
@@ -29,14 +29,14 @@ class AuthController extends Controller
         $user = User::where('email', $data['email'])->first();
 
         if (!$user || !Hash::check($data['password'], $user->password)) {
-            $response = ['message' => 'informacoes nao aceitas'];
+            $response = ['status' => 'ok', 'message' => 'informacoes nao aceitas'];
             return response($response, 401);
         }
 
         $token = $user->createToken('authToken')->plainTextToken;
 
         $response = [
-            'message' => 'usuario encontrado e retornado',
+            'status' => 'ok', 'message' => 'usuario encontrado e retornado',
             'user' => [
                 'id' => $user->id,
                 'name' => $user->name,
@@ -56,7 +56,7 @@ class AuthController extends Controller
         $request->user()->tokens()->delete();
     
         return response()->json([
-        'message' => 'Deslogado com sucesso'
+        'status' => 'ok', 'message' => 'Deslogado com sucesso'
         ]);
     
     }

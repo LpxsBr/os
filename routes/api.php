@@ -17,11 +17,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/user/create', [UserController::class, 'create']);
+Route::post('/user', [UserController::class, 'create']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/user', [UserController::class, 'show'])->name('user');
+    Route::get('/user', [UserController::class, 'show'])->name('user.get');
+    Route::put('/user', [UserController::class, 'update'])->name('user.update');
     Route::post('/service/order', [ServiceOrderController::class, 'createOrder'])->name('order.create');
     Route::get('/service/order', [ServiceOrderController::class, 'getAllOrder'])->name('order.get');
     Route::get('/service/order/{id}', [ServiceOrderController::class, 'getOrderById'])->name('order.getById');
